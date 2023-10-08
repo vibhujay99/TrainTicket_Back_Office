@@ -6,14 +6,14 @@ import { JWT_SECRET, jwtKey } from "../config";
 import {
   removeItemFromLocalStorage,
   getItemFromLocalStorage,
-  setItemToLocalStorage
+  setItemToLocalStorage,
 } from "./LocalStorage";
 import { checkIfTokenExpired } from "../helpers";
-export const signUp = user => axios.post("/auth-owner/signup", user);
+export const signUp = (user) => axios.post("/auth-owner/signup", user);
 
-export const signIn = user => axios.post("/auth-owner/signin", user);
+export const signIn = (user) => axios.post("/auth-owner/signin", user);
 
-export const refreshToken = id =>
+export const refreshToken = (id) =>
   axios.post("/auth-owner/refreshToken", { _id: id });
 
 export const authenticate = (data, next) => {
@@ -48,8 +48,8 @@ export const isAuthenticated = () => {
       } else {
         data = { token, user: { ...decoded } };
       }
-	});
-    setItemToLocalStorage(jwtKey, JSON.stringify({token}));	
+    });
+    setItemToLocalStorage(jwtKey, JSON.stringify({ token }));
     return data;
   } else {
     return false;
