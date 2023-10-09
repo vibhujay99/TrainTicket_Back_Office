@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Component } from "react";
 import Layout from "../../core/Layout";
 import {
