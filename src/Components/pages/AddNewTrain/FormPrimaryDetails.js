@@ -1,11 +1,15 @@
+// Import necessary modules and components
 import React, { Component } from "react";
 import Layout from "../../core/Layout";
 import Swal from "sweetalert2";
 
+// Define a React class component named 'FormPrimaryDetails'
 export default class FormPrimaryDetails extends Component {
-  continue = e => {
+  // Function to continue to the next step
+  continue = (e) => {
     e.preventDefault();
 
+    // Check if required fields are filled, and show an error message if not
     if (
       !this.props.values.name ||
       !this.props.values.fare ||
@@ -13,16 +17,21 @@ export default class FormPrimaryDetails extends Component {
     ) {
       return Swal.fire({
         type: "error",
-        title: "Fill all the required fields"
+        title: "Fill all the required fields",
       });
     }
+
+    // Move to the next step in the form
     this.props.nextStep();
   };
 
+  // Render the component
   render() {
+    // Extract values and handleChange function from props
     const { values, handleChange } = this.props;
 
     return (
+      // Render the component within a Layout component with a title
       <Layout title="Add new train (Primary details)">
         <div className="form-group">
           <label>Name *</label>
@@ -88,7 +97,7 @@ export default class FormPrimaryDetails extends Component {
             <option value="Default" disabled>
               Select Travel
             </option>
-            {values.travels.map(travel => (
+            {values.travels.map((travel) => (
               <option value={travel._id} key={travel._id}>
                 {travel.name}
               </option>
@@ -113,7 +122,7 @@ export default class FormPrimaryDetails extends Component {
           <input
             type="number"
             className="form-control"
-            placeholder="Enter toal seats in the train"
+            placeholder="Enter total seats in the train"
             onChange={handleChange("numberOfSeats")}
             value={values.numberOfSeats}
           />

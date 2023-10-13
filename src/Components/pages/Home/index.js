@@ -1,3 +1,4 @@
+// Import necessary modules and functions from external files and libraries
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import Layout from "../../core/Layout";
@@ -11,17 +12,18 @@ import { getOwners, getGuests, getUsers } from "../../../Utils/Requests/People";
 import { isAuthenticated } from "../../../Utils/Requests/Auth";
 import { getOwnerBookings } from "../../../Utils/Requests/Booking";
 
+// Create a class-based component named 'Home'
 class Home extends React.Component {
   state = {
-    totaltrain: {},
-    totalPeople: {},
-    mytrain: {},
-    myBookings: {},
-    allBookings: {},
-    user: { role: "owner" },
+    totaltrain: {}, // State to store total train data
+    totalPeople: {}, // State to store total people data
+    mytrain: {}, // State to store user's train data
+    myBookings: {}, // State to store user's booking data
+    user: { role: "owner" }, // Initialize the user state with a role
   };
 
   componentDidMount() {
+    // Fetch data when the component mounts
     const { user } = isAuthenticated();
     this.setState({ user });
     this.fetchAlltrainData();
@@ -31,10 +33,12 @@ class Home extends React.Component {
   }
 
   handleRedirect = (e) => {
+    // Handle redirect based on the clicked chart element
     this.props.history.push(`${e._url[e._index]}`);
   };
 
   fetchAlltrainData = async () => {
+    // Fetch and update data about all available and unavailable trains
     let availablecount = 0;
     let unavailablecount = 0;
     const avialable = await getAllAvailableTrains();
@@ -60,6 +64,7 @@ class Home extends React.Component {
   };
 
   fetchAllPeopleData = async () => {
+    // Fetch and update data about owners, users, and guests
     let guestscount = 0;
     let userscount = 0;
     let ownerscount = 0;
@@ -94,6 +99,7 @@ class Home extends React.Component {
   };
 
   fetchMytrainData = async () => {
+    // Fetch and update data about user's available and unavailable trains
     let availablecount = 0;
     let unavailablecount = 0;
     const avialable = await getAvailableTrainsOfOwner();
@@ -119,6 +125,7 @@ class Home extends React.Component {
   };
 
   fetchBookingData = async () => {
+    // Fetch and update data about user's booking statuses
     let verifiedcount = 0;
     let unverifiedcount = 0;
     let payedcount = 0;
@@ -151,9 +158,12 @@ class Home extends React.Component {
   };
 
   render() {
+    // Extract state values and user role
     const { totaltrain, totalPeople, mytrain, myBookings } = this.state;
     const { role } = this.state.user;
+
     return (
+      // Render the component's content within a Layout component
       <Layout>
         <div className="container">
           {role === "superadmin" && (
@@ -223,4 +233,5 @@ class Home extends React.Component {
   }
 }
 
+// Export the 'Home' component as the default export of this module
 export default Home;

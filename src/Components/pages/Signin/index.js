@@ -33,6 +33,7 @@ const Login = () => {
     })
 
     if (data && data.status === 200) {
+      // Authenticate the user and handle redirection
       authenticate(data, () => {
         if (isAuthenticated()) {
           setState({ ...state });
@@ -53,8 +54,8 @@ const Login = () => {
 
   return (
     <div className="login-dark">
-      {loading && showLoading()}
-      {error && showError()}
+      {loading && showLoading()} {/* Display loading message if loading */}
+      {error && showError()} {/* Display error message if there's an error */}
       {!loading && (
         <SigninForm
           handleSubmit={handleSubmit}
@@ -62,7 +63,7 @@ const Login = () => {
           state={state}
         />
       )}
-      {isAuthenticated() && redirectUser()}
+      {isAuthenticated() && redirectUser()} {/* Redirect user if authenticated */}
     </div>
   );
 };

@@ -16,7 +16,9 @@ class MyBookings extends Component {
   constructor(props) {
     super(props);
 
+    // Define columns for the DataTable
     this.columns = [
+      // Column for Serial Number
       {
         key: "sn",
         text: "S.N",
@@ -24,6 +26,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Train Image
       {
         key: "image",
         text: "Image",
@@ -42,20 +45,23 @@ class MyBookings extends Component {
           );
         }
       },
+      // Column for Train Number
       {
         key: "trainNumber",
-        text: "train Number",
+        text: "Train Number",
         className: "name",
         align: "left",
         sortable: true
       },
+      // Column for Train Name
       {
         key: "trainName",
-        text: "train Name",
+        text: "Train Name",
         className: "name",
         align: "left",
         sortable: true
       },
+      // Column for Journey Date
       {
         key: "journeyDate",
         text: "Journey Date",
@@ -63,13 +69,15 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Departure Time
       {
         key: "departure_time",
-        text: "Departure time",
+        text: "Departure Time",
         className: "name",
         align: "left",
         sortable: true
       },
+      // Column for Client Name
       {
         key: "clientName",
         text: "Client Name",
@@ -77,6 +85,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Client Phone
       {
         key: "clientPhone",
         text: "Client Phone",
@@ -84,6 +93,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Client Address
       {
         key: "clientAddress",
         text: "Client Address",
@@ -91,6 +101,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Booked Date
       {
         key: "bookedDate",
         text: "Booked Date",
@@ -98,6 +109,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Seat Number
       {
         key: "seatNumber",
         text: "Seat Number",
@@ -105,6 +117,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Verification Status
       {
         key: "verification",
         text: "Status",
@@ -112,6 +125,7 @@ class MyBookings extends Component {
         align: "left",
         sortable: true
       },
+      // Column for Actions (Verify and Delete)
       {
         key: "action",
         text: "Action",
@@ -152,6 +166,7 @@ class MyBookings extends Component {
       }
     ];
 
+    // Configuration options for the DataTable
     this.config = {
       page_size: 10,
       length_menu: [10, 20, 50],
@@ -198,10 +213,12 @@ class MyBookings extends Component {
     }
   }
 
+  // Function to toggle verification status (verify/unverify)
   toggleVerify = (id, status) => async e => {
     let toggledVerification =
       status === "verified" ? "notverified" : "verified";
 
+    // Show a confirmation dialog before proceeding
     Swal.fire({
       title: "Are you sure?",
       text: "You are changing the verification status",
@@ -230,7 +247,9 @@ class MyBookings extends Component {
     });
   };
 
+  // Function to delete a booking record
   deleteRecord = id => {
+    // Show a confirmation dialog before deleting
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -252,6 +271,7 @@ class MyBookings extends Component {
     });
   };
 
+  // Function to fetch booking data
   fetchBookings = async () => {
     const resp = await getOwnerBookings().catch(err => {
       this.setState({ error: err.response.data.error, isLoading: false });
@@ -284,12 +304,13 @@ class MyBookings extends Component {
     }
   };
 
+  // Function to handle page change in the DataTable
   pageChange = pageData => {
     console.log("OnPageChange", pageData);
   };
 
+  // Render the component
   render() {
-    console.log(this.state);
     return (
       <Layout title="My Bookings">
         <div className="d-flex" id="wrapper">

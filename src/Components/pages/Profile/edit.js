@@ -89,8 +89,8 @@ class EditProfile extends Component {
     const { oldPassword, newPassword, error, loading } = this.state;
     return (
       <Layout title="Update Profile">
-        {showError(error)}
-        {showLoading(loading)}
+        {showError(error)} {/* Display error message if there's an error */}
+        {showLoading(loading)} {/* Display loading message if loading */}
         {!loading && (
           <>
             <div className="form-group">

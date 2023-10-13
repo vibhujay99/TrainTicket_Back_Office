@@ -10,6 +10,7 @@ class Travels extends Component {
   constructor(props) {
     super(props);
 
+    // Define columns for the DataTable
     this.columns = [
       {
         key: "sn",
@@ -35,6 +36,7 @@ class Travels extends Component {
         cell: (record) => {
           return (
             <>
+              {/* Edit button */}
               <button
                 data-toggle="modal"
                 data-target="#update-user-modal"
@@ -46,6 +48,7 @@ class Travels extends Component {
               >
                 <i className="fa fa-edit"></i>
               </button>
+              {/* Delete button */}
               <button
                 className="btn btn-danger btn-sm"
                 onClick={() => this.deleteRecord(record._id)}
@@ -58,10 +61,11 @@ class Travels extends Component {
       },
     ];
 
+    // Configuration options for the DataTable
     this.config = {
       page_size: 10,
       length_menu: [10, 20, 50],
-      filename: "traines",
+      filename: "travels",
       no_data_text: "No travel found!",
       button: {
         excel: true,
@@ -69,7 +73,7 @@ class Travels extends Component {
         csv: true,
       },
       language: {
-        length_menu: "Show _MENU_ result per page",
+        length_menu: "Show _MENU_ results per page",
         filter: "Filter in records...",
         info: "Showing _START_ to _END_ of _TOTAL_ records",
         pagination: {
@@ -102,7 +106,9 @@ class Travels extends Component {
     }
   }
 
+  // Function to delete a travel record
   deleteRecord = (id) => {
+    // Show a confirmation dialog before deleting
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -124,6 +130,7 @@ class Travels extends Component {
     });
   };
 
+  // Function to fetch travel data
   fetchTravels = async () => {
     const resp = await getAllTravels().catch((err) => {
       this.setState({ error: err.response.data.error, isLoading: false });
@@ -140,10 +147,12 @@ class Travels extends Component {
     }
   };
 
+  // Function to handle page change in the DataTable
   pageChange = (pageData) => {
     console.log("OnPageChange", pageData);
   };
 
+  // Render the component
   render() {
     return (
       <Layout title="Travels">
