@@ -115,7 +115,7 @@ class TrainAvailable extends Component {
     this.config = {
       page_size: 10,
       length_menu: [10, 20, 50],
-      filename: "traines",
+      filename: "trains",
       no_data_text: "No train found!",
       button: {
         excel: true,
@@ -140,19 +140,19 @@ class TrainAvailable extends Component {
     };
 
     this.state = {
-      traines: [],
+      trains: [],
       isLoading: true,
       error: ""
     };
   }
 
   componentDidMount() {
-    this.fetchAvailabletraines();
+    this.fetchAvailabletrains();
   }
 
   componentDidUpdate(nextProps, nextState) {
-    if (nextState.traines === this.state.traines) {
-      this.fetchAvailabletraines();
+    if (nextState.trains === this.state.trains) {
+      this.fetchAvailabletrains();
     }
   }
 
@@ -178,19 +178,19 @@ class TrainAvailable extends Component {
     });
   };
 
-  fetchAvailabletraines = async () => {
-    const traines = await getAvailableTrainsOfOwner().catch(err => {
+  fetchAvailabletrains = async () => {
+    const trains = await getAvailableTrainsOfOwner().catch(err => {
       this.setState({ error: err.response.data.error, isLoading: false });
     });
-    if (traines && traines.status === 200) {
+    if (trains && trains.status === 200) {
       let counter = 1;
-      traines.data.map(train => {
+      trains.data.map(train => {
         train.journeyDate = moment(train.journeyDate).format("MMMM Do, YYYY");
         train.sn = counter;
         counter++;
         return train;
       });
-      this.setState({ traines: traines.data, isLoading: false });
+      this.setState({ trains: trains.data, isLoading: false });
     }
   };
 
@@ -200,7 +200,7 @@ class TrainAvailable extends Component {
 
   render() {
     return (
-      <Layout title="My traines > Available traines">
+      <Layout title="My trains > Available trains">
         <div className="d-flex" id="wrapper">
           <div id="page-content-wrapper">
             <div className="container-fluid">
@@ -220,7 +220,7 @@ class TrainAvailable extends Component {
               ) : (
                 <ReactDatatable
                   config={this.config}
-                  records={this.state.traines}
+                  records={this.state.trains}
                   columns={this.columns}
                   onPageChange={this.pageChange}
                 />

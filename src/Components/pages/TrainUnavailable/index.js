@@ -131,35 +131,35 @@ class TrainUnavailable extends Component {
     };
 
     this.state = {
-      traines: [],
+      trains: [],
       isLoading: true,
       error: ""
     };
   }
 
   componentDidMount() {
-    this.fetchUnavailabletraines();
+    this.fetchUnavailabletrains();
   }
 
   componentDidUpdate(nextProps, nextState) {
-    if (nextState.traines === this.state.traines) {
-      this.fetchUnavailabletraines();
+    if (nextState.trains === this.state.trains) {
+      this.fetchUnavailabletrains();
     }
   }
 
-  fetchUnavailabletraines = async () => {
-    const traines = await getUnavailableTrainsOfOwner().catch(err => {
+  fetchUnavailabletrains = async () => {
+    const trains = await getUnavailableTrainsOfOwner().catch(err => {
       this.setState({ error: err.response.data.error, isLoading: false });
     });
-    if (traines && traines.status === 200) {
+    if (trains && trains.status === 200) {
       let counter = 1;
-      traines.data.map(train => {
+      trains.data.map(train => {
         train.journeyDate = moment(train.journeyDate).format("MMMM Do, YYYY");
         train.sn = counter;
         counter++;
         return train;
       });
-      this.setState({ traines: traines.data, isLoading: false });
+      this.setState({ trains: trains.data, isLoading: false });
     }
   };
 
@@ -211,7 +211,7 @@ class TrainUnavailable extends Component {
               ) : (
                 <ReactDatatable
                   config={this.config}
-                  records={this.state.traines}
+                  records={this.state.trains}
                   columns={this.columns}
                   onPageChange={this.pageChange}
                 />

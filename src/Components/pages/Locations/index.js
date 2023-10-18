@@ -71,7 +71,7 @@ class Locations extends Component {
     this.config = {
       page_size: 10,
       length_menu: [10, 20, 50],
-      filename: "traines",
+      filename: "trains",
       no_data_text: "No location found!",
       button: {
         excel: true,

@@ -142,29 +142,29 @@ class TrainUnavailable extends Component {
     };
 
     this.state = {
-      traines: [],
+      trains: [],
       isLoading: true,
       error: ""
     };
   }
 
   componentDidMount() {
-    this.fetchUnavailabletraines();
+    this.fetchUnavailabletrains();
   }
 
   componentDidUpdate(nextProps, nextState) {
-    if (nextState.traines === this.state.traines) {
-      this.fetchUnavailabletraines();
+    if (nextState.trains === this.state.trains) {
+      this.fetchUnavailabletrains();
     }
   }
 
-  fetchUnavailabletraines = async () => {
-    const traines = await getAllUnavailableTrains().catch(err => {
+  fetchUnavailabletrains = async () => {
+    const trains = await getAllUnavailableTrains().catch(err => {
       this.setState({ error: err.response.data.error, isLoading: false });
     });
-    if (traines && traines.status === 200) {
+    if (trains && trains.status === 200) {
       let counter = 1;
-      traines.data.map(train => {
+      trains.data.map(train => {
         train.journeyDate = moment(train.journeyDate).format("MMMM Do, YYYY");
         train.sn = counter;
         counter++;
@@ -172,7 +172,7 @@ class TrainUnavailable extends Component {
         train.travel = train.travel.name;
         return train;
       });
-      this.setState({ traines: traines.data, isLoading: false });
+      this.setState({ trains: trains.data, isLoading: false });
     }
   };
 
@@ -204,7 +204,7 @@ class TrainUnavailable extends Component {
 
   render() {
     return (
-      <Layout title="All traines > Unavailable traines">
+      <Layout title="All trains > Unavailable trains">
         <div className="d-flex" id="wrapper">
           <div id="page-content-wrapper">
             <div className="container-fluid">
@@ -218,13 +218,13 @@ class TrainUnavailable extends Component {
                 {" "}
                 Add train
               </button>
-              <h1 className="mt-2 text-primary">All Unavailable traines</h1>
+              <h1 className="mt-2 text-primary">All Unavailable trains</h1>
               {this.state.isLoading ? (
                 <Loading />
               ) : (
                 <ReactDatatable
                   config={this.config}
-                  records={this.state.traines}
+                  records={this.state.trains}
                   columns={this.columns}
                   onPageChange={this.pageChange}
                 />
